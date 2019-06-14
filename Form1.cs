@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Microsoft.Speech.Recognition;
+using System.Diagnostics;
 
 namespace SpeechRecognition
 {
@@ -22,12 +23,33 @@ namespace SpeechRecognition
         static void sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
             if (e.Result.Confidence > 0.90) l.Text = e.Result.Text;
-        }	
+
+            switch (e.Result.Text)
+            {
+                case "выключить":
+                    MessageBox.Show("Excellent !!");
+                    break;
+                case "компьютер":
+                    MessageBox.Show("Very Good  !!");
+                    break;
+                case "браузер":
+                    System.Diagnostics.Process Proc = new System.Diagnostics.Process();
+                    Proc.StartInfo.FileName = "google.exe";
+                    Proc.Start();
+                    break;
+                case "ютуб":
+                    MessageBox.Show("Very Good  !!");
+                    break;
+
+
+
+            }
+        }    
         
         private void Form1_Shown(object sender, EventArgs e)
         {
             l = label1;
-          //авпв 
+       
             System.Globalization.CultureInfo ci = new System.Globalization.CultureInfo("ru-ru");
             SpeechRecognitionEngine sre = new SpeechRecognitionEngine(ci);
             sre.SetInputToDefaultAudioDevice();
@@ -36,7 +58,7 @@ namespace SpeechRecognition
           
 
             Choices numbers = new Choices();
-            numbers.Add(new string[] { "выключить", "два", "три", "четыре", "пять" });
+            numbers.Add(new string[] { "выключить", "компьютер", "браузер", "ютуб" });
 
    
             GrammarBuilder gb = new GrammarBuilder();
