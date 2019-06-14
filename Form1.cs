@@ -21,7 +21,7 @@ namespace SpeechRecognition
 
         static void sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
-            if (e.Result.Confidence > 0.7) l.Text = e.Result.Text;
+            if (e.Result.Confidence > 0.90) l.Text = e.Result.Text;
         }	
         
         private void Form1_Shown(object sender, EventArgs e)
@@ -36,7 +36,7 @@ namespace SpeechRecognition
           
 
             Choices numbers = new Choices();
-            numbers.Add(new string[] { "один", "два", "три", "четыре", "пять" });
+            numbers.Add(new string[] { "выключить", "два", "три", "четыре", "пять" });
 
    
             GrammarBuilder gb = new GrammarBuilder();
