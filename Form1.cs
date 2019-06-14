@@ -27,22 +27,24 @@ namespace SpeechRecognition
             switch (e.Result.Text)
             {
                 case "выключить":
-                    MessageBox.Show("Excellent !!");
+                    System.Diagnostics.Process.Start("cmd", "/c shutdown -s -f -t 00");
                     break;
                 case "компьютер":
-                    MessageBox.Show("Very Good  !!");
+                    string myComputerPath = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
+                    System.Diagnostics.Process.Start("explorer", myComputerPath);
                     break;
                 case "браузер":
-                    System.Diagnostics.Process Proc = new System.Diagnostics.Process();
-                    Proc.StartInfo.FileName = "google.exe";
-                    Proc.Start();
+                    System.Diagnostics.Process.Start("http://www.google.com");
                     break;
                 case "ютуб":
-                    MessageBox.Show("Very Good  !!");
+                    System.Diagnostics.Process.Start("https://www.youtube.com");
                     break;
-
-
-
+                case "радио":
+                    System.Diagnostics.Process.Start(@"D:\исходник\Radio1\bin\Debug\Radio.exe");
+                    break;
+                default:
+                    MessageBox.Show(" Не могу распознать  ");
+                    break;
             }
         }    
         
@@ -58,7 +60,7 @@ namespace SpeechRecognition
           
 
             Choices numbers = new Choices();
-            numbers.Add(new string[] { "выключить", "компьютер", "браузер", "ютуб" });
+            numbers.Add(new string[] {"радио", "выключить", "компьютер", "браузер", "ютуб" });
 
    
             GrammarBuilder gb = new GrammarBuilder();
