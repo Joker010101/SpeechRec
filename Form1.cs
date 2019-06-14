@@ -22,19 +22,17 @@ namespace SpeechRecognition
 
         static void sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
-            if (e.Result.Confidence > 0.80) l.Text = e.Result.Text;
-               { 
-                   if (e.Result.Text == "выключить")System.Diagnostics.Process.Start("cmd", "/c shutdown -s -f -t 00");
-                   if (e.Result.Text == "компьютер")
-                   {
-                    string myComputerPath = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
-                    System.Diagnostics.Process.Start("explorer", myComputerPath);
-                   };
-
-                 if (e.Result.Text == "браузер")System.Diagnostics.Process.Start("http://www.google.com");
-                 if (e.Result.Text == "ютуб")System.Diagnostics.Process.Start("https://www.youtube.com");
-                 if (e.Result.Text == "радио") System.Diagnostics.Process.Start(@"D:\исходник\Radio1\bin\Debug\Radio.exe");
-               }
+              if (e.Result.Confidence > 0.85) l.Text = e.Result.Text;
+               {
+                // if (e.Result.Text == "выключить"&& e.Result.Confidence > 0.87)System.Diagnostics.Process.Start("cmd", "/c shutdown -s -f -t 00");
+                if (e.Result.Text == "компьютер" && e.Result.Confidence > 0.80)
+                   {string myComputerPath = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
+                    System.Diagnostics.Process.Start("explorer", myComputerPath);};
+                 if (e.Result.Text == "браузер" && e.Result.Confidence > 0.87)System.Diagnostics.Process.Start("http://www.google.com");
+                 if (e.Result.Text == "ютуб" && e.Result.Confidence > 0.87) System.Diagnostics.Process.Start("https://www.youtube.com");
+                 if (e.Result.Text == "радио" && e.Result.Confidence > 0.87) System.Diagnostics.Process.Start(@"D:\исходник\Radio1\bin\Debug\Radio.exe");
+                }
+            
             
         }    
         
@@ -50,7 +48,7 @@ namespace SpeechRecognition
           
 
             Choices numbers = new Choices();
-            numbers.Add(new string[] {"радио", "выключить", "компьютер", "браузер", "ютуб" });
+            numbers.Add(new string[] {"радио","выключить", "компьютер", "браузер", "ютуб" });
 
    
             GrammarBuilder gb = new GrammarBuilder();
