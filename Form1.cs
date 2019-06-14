@@ -22,30 +22,20 @@ namespace SpeechRecognition
 
         static void sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
-            if (e.Result.Confidence > 0.90) l.Text = e.Result.Text;
-
-            switch (e.Result.Text)
-            {
-                case "выключить":
-                    System.Diagnostics.Process.Start("cmd", "/c shutdown -s -f -t 00");
-                    break;
-                case "компьютер":
+            if (e.Result.Confidence > 0.80) l.Text = e.Result.Text;
+               { 
+                   if (e.Result.Text == "выключить")System.Diagnostics.Process.Start("cmd", "/c shutdown -s -f -t 00");
+                   if (e.Result.Text == "компьютер")
+                   {
                     string myComputerPath = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
                     System.Diagnostics.Process.Start("explorer", myComputerPath);
-                    break;
-                case "браузер":
-                    System.Diagnostics.Process.Start("http://www.google.com");
-                    break;
-                case "ютуб":
-                    System.Diagnostics.Process.Start("https://www.youtube.com");
-                    break;
-                case "радио":
-                    System.Diagnostics.Process.Start(@"D:\исходник\Radio1\bin\Debug\Radio.exe");
-                    break;
-                default:
-                    MessageBox.Show(" Не могу распознать  ");
-                    break;
-            }
+                   };
+
+                 if (e.Result.Text == "браузер")System.Diagnostics.Process.Start("http://www.google.com");
+                 if (e.Result.Text == "ютуб")System.Diagnostics.Process.Start("https://www.youtube.com");
+                 if (e.Result.Text == "радио") System.Diagnostics.Process.Start(@"D:\исходник\Radio1\bin\Debug\Radio.exe");
+               }
+            
         }    
         
         private void Form1_Shown(object sender, EventArgs e)
