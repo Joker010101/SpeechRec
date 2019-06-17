@@ -21,10 +21,15 @@ namespace SpeechRecognition
         static Label l;
         static Label l2;
 
+
+       
+
+
+
         static void sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
             l2.Text = e.Result.Confidence.ToString();
-            if (e.Result.Confidence > 0.33) 
+                if (e.Result.Confidence > 0.33) 
             {
                 l.Text = e.Result.Text;
                 // if (e.Result.Text == "выключить"&& e.Result.Confidence > 0.87)System.Diagnostics.Process.Start("cmd", "/c shutdown -s -f -t 00");
@@ -47,23 +52,16 @@ namespace SpeechRecognition
             System.Globalization.CultureInfo ci = new System.Globalization.CultureInfo("ru-ru");
             SpeechRecognitionEngine sre = new SpeechRecognitionEngine(ci);
             sre.SetInputToDefaultAudioDevice();
-          
             sre.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(sre_SpeechRecognized);
-          
-
             Choices numbers = new Choices();
             numbers.Add(new string[] {"радио","выключить", "компьютер", "браузер", "ютуб" });
-
-   
             GrammarBuilder gb = new GrammarBuilder();
             gb.Culture = ci;
             gb.Append(numbers);
-
-
             Grammar g = new Grammar(gb);
             sre.LoadGrammar(g);
-
             sre.RecognizeAsync(RecognizeMode.Multiple);
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
