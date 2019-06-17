@@ -33,8 +33,9 @@ namespace SpeechRecognition
                     System.Diagnostics.Process.Start("explorer", myComputerPath);};
                  if (e.Result.Text == "браузер" && e.Result.Confidence > 0.87)System.Diagnostics.Process.Start("http://www.google.com");
                  if (e.Result.Text == "ютуб" && e.Result.Confidence > 0.87) System.Diagnostics.Process.Start("https://www.youtube.com");
-                 if (e.Result.Text == "радио" && e.Result.Confidence > 0.87) System.Diagnostics.Process.Start(@"D:\исходник\Radio1\bin\Debug\Radio.exe");
-             }
+                // if (e.Result.Text == "радио" && e.Result.Confidence > 0.87) System.Diagnostics.Process.Start(@"D:\исходник\Radio1\bin\Debug\Radio.exe");
+                if (e.Result.Text == "радио" && e.Result.Confidence > 0.87) System.Diagnostics.Process.Start(@"D:\исходники\radio\radio\radio\Radio\bin\Debug\Radio.exe");
+            }
             
             
         }    
