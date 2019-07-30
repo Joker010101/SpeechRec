@@ -24,7 +24,7 @@ namespace SpeechRecognition
 
        
 
-// proverka 
+// proverka 2 
 
         static void sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
