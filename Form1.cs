@@ -34,13 +34,18 @@ namespace SpeechRecognition
                 l.Text = e.Result.Text;
                 // if (e.Result.Text == "выключить"&& e.Result.Confidence > 0.87)System.Diagnostics.Process.Start("cmd", "/c shutdown -s -f -t 00");
                 if (e.Result.Text == "компьютер" && e.Result.Confidence > 0.80)
-                   {string myComputerPath = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
-                    System.Diagnostics.Process.Start("explorer", myComputerPath);};
+                {
+                    string myComputerPath = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
+                    System.Diagnostics.Process.Start("explorer", myComputerPath);
+                };
                  if (e.Result.Text == "браузер" && e.Result.Confidence > 0.87)System.Diagnostics.Process.Start("http://www.google.com");
                  if (e.Result.Text == "ютуб" && e.Result.Confidence > 0.87) System.Diagnostics.Process.Start("https://www.youtube.com");
                 // if (e.Result.Text == "радио" && e.Result.Confidence > 0.87) System.Diagnostics.Process.Start(@"D:\исходник\Radio1\bin\Debug\Radio.exe");
                 if (e.Result.Text == "радио" && e.Result.Confidence > 0.87) System.Diagnostics.Process.Start(@"D:\исходники\radio\radio\radio\Radio\bin\Debug\Radio.exe");
+                if (e.Result.Text == "выход" && e.Result.Confidence > 0.87){MessageBox.Show("пока господин");Application.Exit();};
+                if (e.Result.Text == "пока" && e.Result.Confidence > 0.87) MessageBox.Show("надоела Вам");
                 
+                    
             }
             
             
@@ -48,6 +53,7 @@ namespace SpeechRecognition
         
         private void Form1_Shown(object sender, EventArgs e)
         {
+            sre.SpeechDetected
             l = label1;
             l2 = label2;
             System.Globalization.CultureInfo ci = new System.Globalization.CultureInfo("ru-ru");
@@ -55,7 +61,7 @@ namespace SpeechRecognition
             sre.SetInputToDefaultAudioDevice();
             sre.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(sre_SpeechRecognized);
             Choices numbers = new Choices();
-            numbers.Add(new string[] {"радио","выключить", "компьютер", "браузер", "ютуб","пока","алена" });
+            numbers.Add(new string[] {"радио","выключить", "компьютер", "браузер", "ютуб","пока","алена","выход" });
             GrammarBuilder gb = new GrammarBuilder();
             gb.Culture = ci;
             gb.Append(numbers);
