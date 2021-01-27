@@ -56,7 +56,7 @@ namespace SpeechRecognition
            
             l = label1;
             l2 = label2;
-           
+            Speech();
         
         }
 
@@ -80,6 +80,10 @@ namespace SpeechRecognition
             sre.RecognizeAsync(RecognizeMode.Multiple);
 
         }
+
+
+
+
 
 
 
