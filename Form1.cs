@@ -53,29 +53,35 @@ namespace SpeechRecognition
         
         private void Form1_Shown(object sender, EventArgs e)
         {
-            sre.SpeechDetected
+           
             l = label1;
             l2 = label2;
+           
+        
+        }
+
+
+        static void Speech()
+        {
+
+
+
             System.Globalization.CultureInfo ci = new System.Globalization.CultureInfo("ru-ru");
             SpeechRecognitionEngine sre = new SpeechRecognitionEngine(ci);
             sre.SetInputToDefaultAudioDevice();
             sre.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(sre_SpeechRecognized);
             Choices numbers = new Choices();
-            numbers.Add(new string[] {"радио","выключить", "компьютер", "браузер", "ютуб","пока","алена","выход" });
+            numbers.Add(new string[] { "радио", "выключить", "компьютер", "браузер", "ютуб", "пока", "алена" });
             GrammarBuilder gb = new GrammarBuilder();
             gb.Culture = ci;
             gb.Append(numbers);
             Grammar g = new Grammar(gb);
             sre.LoadGrammar(g);
-            
             sre.RecognizeAsync(RecognizeMode.Multiple);
-            
-        
+
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            
-        }
+
+
     }
 }
