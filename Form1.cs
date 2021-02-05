@@ -6,10 +6,17 @@ namespace SpeechRecognition
 {
     public partial class Form1 : Form
     {
+
+
+
+
         public Form1()
         {
             InitializeComponent();
         }
+
+        private SpeechRecognitionEngine sre;
+
 
         static Label l;
         static Label l2;
@@ -61,18 +68,10 @@ namespace SpeechRecognition
             l = label1;
             l2 = label2;
 
-
-
-        }
-
-
-        static void Speech()
-        {
-
-
+            checkBox1.Enabled = true;
 
             System.Globalization.CultureInfo ci = new System.Globalization.CultureInfo("ru-ru");
-            SpeechRecognitionEngine sre = new SpeechRecognitionEngine(ci);
+            sre = new SpeechRecognitionEngine(ci);
             sre.SetInputToDefaultAudioDevice();
             sre.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(sre_SpeechRecognized);
             Choices numbers = new Choices();
@@ -84,22 +83,18 @@ namespace SpeechRecognition
             sre.LoadGrammar(g);
             sre.RecognizeAsync(RecognizeMode.Multiple);
 
-        }
-
-        static void SpeechOff()
-        {
 
 
-            System.Globalization.CultureInfo ci = new System.Globalization.CultureInfo("ru-ru");
-            SpeechRecognitionEngine sre1 = new SpeechRecognitionEngine(ci);
-            sre1.SetInputToDefaultAudioDevice();
-            sre1.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(sre_SpeechRecognized);
-            sre1.RecognizeAsyncStop();
-            sre1.RecognizeAsyncCancel();
+
 
 
 
         }
+
+
+
+
+
 
 
 
@@ -110,22 +105,25 @@ namespace SpeechRecognition
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
 
+
             CheckBox checkBox = (CheckBox)sender;
 
             if (checkBox.Checked == true)
             {
                 checkBox1.Text = "Выключить";
-                Speech();
+                sre.RecognizeAsync(RecognizeMode.Multiple);
             }
             else
 
             {
                 checkBox1.Text = "Включить";
-                SpeechOff();
-                MessageBox.Show("dfd");
+                MessageBox.Show("Выкл");
+                sre.RecognizeAsyncStop();
             }
 
 
         }
+
+
     }
 }
