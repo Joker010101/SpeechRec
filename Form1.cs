@@ -20,23 +20,52 @@ namespace SpeechRecognition
 
         static Label l;
         static Label l2;
+        static CheckBox Chek;
 
 
 
 
-        // proverka 2 
+
+        static void KeyVoice()
+        {
+
+            System.Globalization.CultureInfo ci = new System.Globalization.CultureInfo("ru-ru");
+            SpeechRecognitionEngine sre2 = new SpeechRecognitionEngine(ci);
+            sre2.SetInputToDefaultAudioDevice();
+            sre2.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(sre_key);
+            Choices numbers = new Choices();
+            numbers.Add(new string[] { "кузя" });
+            GrammarBuilder gb = new GrammarBuilder();
+            gb.Culture = ci;
+            gb.Append(numbers);
+            Grammar g = new Grammar(gb);
+            sre2.LoadGrammar(g);
+            sre2.RecognizeAsync(RecognizeMode.Multiple);
+
+
+
+        }
+
+        static void sre_key(object sender, SpeechRecognizedEventArgs e)
+        {
+            l2.Text = e.Result.Confidence.ToString();
+            if (e.Result.Confidence > 0.33)
+            {
+
+                if (e.Result.Text == "кузя" && e.Result.Confidence > 0.87) { Chek.Checked = true; };
+
+            }
+
+
+        }
 
         static void sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
 
-
-
-
-
-
-            l2.Text = e.Result.Confidence.ToString();
-            if (e.Result.Confidence > 0.33)
+           
+            if (e.Result.Confidence > 0.45)
             {
+                l2.Text = e.Result.Confidence.ToString();
                 l.Text = e.Result.Text;
                 // if (e.Result.Text == "выключить"&& e.Result.Confidence > 0.87)System.Diagnostics.Process.Start("cmd", "/c shutdown -s -f -t 00");
                 if (e.Result.Text == "компьютер" && e.Result.Confidence > 0.80)
@@ -48,9 +77,8 @@ namespace SpeechRecognition
                 if (e.Result.Text == "ютуб" && e.Result.Confidence > 0.87) System.Diagnostics.Process.Start("https://www.youtube.com");
                 // if (e.Result.Text == "радио" && e.Result.Confidence > 0.87) System.Diagnostics.Process.Start(@"D:\исходник\Radio1\bin\Debug\Radio.exe");
                 if (e.Result.Text == "радио" && e.Result.Confidence > 0.87) System.Diagnostics.Process.Start(@"D:\исходники\radio\radio\radio\Radio\bin\Debug\Radio.exe");
-                if (e.Result.Text == "выход" && e.Result.Confidence > 0.87) { MessageBox.Show("пока господин"); Application.Exit(); };
-                if (e.Result.Text == "пока" && e.Result.Confidence > 0.87) MessageBox.Show("надоела Вам");
-
+                if (e.Result.Text == "выход" && e.Result.Confidence > 0.87) { Application.Exit(); };
+                if (e.Result.Text == "пока" && e.Result.Confidence > 0.87) {  Chek.Checked = false; };
 
             }
 
@@ -68,6 +96,8 @@ namespace SpeechRecognition
             l = label1;
             l2 = label2;
 
+            Chek = checkBox1;
+
             checkBox1.Enabled = true;
 
             System.Globalization.CultureInfo ci = new System.Globalization.CultureInfo("ru-ru");
@@ -75,7 +105,7 @@ namespace SpeechRecognition
             sre.SetInputToDefaultAudioDevice();
             sre.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(sre_SpeechRecognized);
             Choices numbers = new Choices();
-            numbers.Add(new string[] { "радио", "выключить", "компьютер", "браузер", "ютуб", "пока", "алена" });
+            numbers.Add(new string[] { "радио", "выключить", "компьютер", "браузер", "ютуб", "пока", "выход" });
             GrammarBuilder gb = new GrammarBuilder();
             gb.Culture = ci;
             gb.Append(numbers);
@@ -84,22 +114,7 @@ namespace SpeechRecognition
             sre.RecognizeAsync(RecognizeMode.Multiple);
 
 
-
-
-
-
-
         }
-
-
-
-
-
-
-
-
-
-
 
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -117,8 +132,10 @@ namespace SpeechRecognition
 
             {
                 checkBox1.Text = "Включить";
-                MessageBox.Show("Выкл");
+                MessageBox.Show("Выкл голосовой Ассистен");
                 sre.RecognizeAsyncStop();
+                KeyVoice();
+
             }
 
 
